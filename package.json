@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint src/**/*.jsx src/**/*.js"
+    "lint": "eslint src/**/*.jsx src/**/*.js --fix"
   },
   "eslintConfig": {
     "extends": [
