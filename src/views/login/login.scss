@@ -1,0 +1,25 @@
+.login-div__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("../../images/login-background.png");
+    background-size: cover;
+
+    .login-img__laliga {
+        width: 75vw;
+        max-width: 500px;
+        margin-bottom: 50px;
+    }
+
+    .login-form__main {
+        background: rgb(113,134,156);
+        color: white;
+        width: 75vw;
+        max-width: 500px;
+        padding: 10px;
+        border: 1px gray solid;
+        border-radius: 5px;
+    }
+}

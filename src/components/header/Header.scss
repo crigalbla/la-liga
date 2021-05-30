@@ -1,0 +1,61 @@
+$headerSize: 5vh;
+
+.header-div__main {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  height: $headerSize;
+  width: 100%;
+
+  .header-img__laliga {
+    margin: 5px;
+    height: 4vh;
+  }
+
+  .header-span__welcome {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 4vh;
+    font-weight: bold;
+    line-height: $headerSize;
+
+    @media only screen and (max-width: 1200px) { font-size: 3.5vh }
+    @media only screen and (max-width: 992px) { font-size: 3vh }
+    @media only screen and (max-width: 768px) { font-size: 2.5vh }
+    @media only screen and (max-width: 600px) { font-size: 2vh }
+  }
+
+  .header-dropdown__main {
+    display: flex;
+
+    button {
+      background-color: black !important;
+      border-color: black !important;
+      color: black !important;
+      padding: 0px !important;
+      height: 5vh;
+
+      &:focus {
+        box-shadow: none !important;
+      }
+
+      &::after {
+        content: none;
+      }
+    }
+
+    a:focus {
+      color: white;
+      background: rgb(30, 30, 30);
+    }
+
+    .header-img__logout {
+      cursor: pointer;
+      margin: 0px 5px;
+      height: 4vh;
+      background: white;
+      border-radius: 5px;
+    }
+  }
+}
