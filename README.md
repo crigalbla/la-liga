@@ -34,25 +34,25 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 The project show a list of users and the details of each of them. Each user can be edited and deleted (simulated according to the API).
 It has been used React 17.0.2, Redux 4.1.0, Redux-Saga 1.1.3, Hooks and Functionals components. Other important libraries:
 
-Dependencies
-"node-sass": "^6.0.0" => To be able to use sass and scss.
-"bootstrap": "^5.0.1" => For quick styles.
-"react-bootstrap": "^1.6.0" => To have components created and styled.
+Dependencies:  
+"node-sass": "^6.0.0" => To be able to use sass and scss.  
+"bootstrap": "^5.0.1" => For quick styles.  
+"react-bootstrap": "^1.6.0" => To have components created and styled.  
 "react-router-dom": "^5.2.0" => To manage the routers.
 
-Dev dependencies:
-"eslint": "^7.27.0"
-"prettier": "2.3.0"
-"husky": "^6.0.0"
-"lint-staged": "^11.0.0"
+Dev dependencies:  
+"eslint": "^7.27.0"  
+"prettier": "2.3.0"  
+"husky": "^6.0.0"  
+"lint-staged": "^11.0.0"  
 
 ### Structure
 
-The project is structured with views and components. The views are the pages that we see and these use the components if is necessary.
-All the request are called from redux-saga except the login request that it call the service fetch.service.
-The token is managed with the service storage.service.
-React-router-dom was use to router the web located in App.jsx.
-The project have a file .env with a unique constant => REACT_APP_API.
+The project is structured with views and components. The views are the pages that we see and these use the components if is necessary.  
+All the request are called from redux-saga except the login request that it call the service fetch.service.  
+The token is managed with the service storage.service.  
+React-router-dom was use to router the web located in App.jsx.  
+The project have a file .env with a unique constant => REACT_APP_API.  
 
 ### Views
 
