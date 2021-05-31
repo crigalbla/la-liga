@@ -23,7 +23,7 @@ const Modal = (props) => {
             <BoostrapModal.Body>{text}</BoostrapModal.Body>
             <BoostrapModal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    Cerrar
                 </Button>
             </BoostrapModal.Footer>
         </BoostrapModal>

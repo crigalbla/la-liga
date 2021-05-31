@@ -31,7 +31,7 @@ const handleApi = async (response) => {
     return responseJson;
 };
 
-const FetchService = async (method, path) => {
+const FetchService = async (method, path, data) => {
     if (!path) return parseHttpErrors('Error URL did not add');
     if (!apiMethods.includes(method.toUpperCase())) {
         return parseHttpErrors(`Error in method type: You used '${method}'. You must use GET, POST, PUT or DELETE`);
@@ -41,6 +41,7 @@ const FetchService = async (method, path) => {
         const parameters = {
             method: method.toUpperCase(),
             headers: headers$,
+            body: JSON.stringify(data),
         };
 
         return fetch(process.env.REACT_APP_API + path, parameters)

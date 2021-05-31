@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 import StorageService from '../../services/storage.service';
@@ -8,12 +8,18 @@ import laLigaLogo from '../../images/la-liga.png';
 import './login.scss';
 
 const Login = () => {
+    const [error, setError] = useState(false);
+
     const handleOnSubmit = (event) => {
         const { email, password } = event.target.form;
-        const path = `/login?email=${email.value}&password=${password.value}`;
-        FetchService('post', path).then((res) => {
-            StorageService.save('token', `token_falso_${email.value}`);
-            window.location.pathname = '/home';
+        const data = { email: email.value, password: password.value };
+        FetchService('post', '/login', data).then((res) => {
+            if (res && res.status === 200) {
+                StorageService.save('token', res.results.token);
+                window.location.pathname = '/home';
+            } else {
+                setError(true);
+            }
         });
     };
 
@@ -27,12 +33,13 @@ const Login = () => {
             <Form className="login-form__main">
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" name="email" />
+                    <Form.Control type="email" placeholder="Enter email" name="email" onChange={() => setError(false)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                     <Form.Label>Contraseña</Form.Label>
-                    <Form.Control type="password" placeholder="Password" name="password" />
+                    <Form.Control type="password" placeholder="Password" name="password" onChange={() => setError(false)} />
                 </Form.Group>
+                {error && <div className="login-div__error">Usuario y/o contraseña incorrectos</div>}
                 <Button
                     variant="dark"
                     type="button"
