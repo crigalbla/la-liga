@@ -5,14 +5,15 @@ import './modal.scss';
 
 const Modal = (props) => {
     const {
-        show, title, text, goBack, setFather,
+        show, title, text, goBack, setFather, history, dispatch,
     } = props;
     const [showLocal, setShowLocal] = useState(show);
 
     const handleClose = () => {
         setShowLocal(false);
-        if (goBack) window.history.back();
-        if (setFather) setTimeout(() => setFather({ show: false, title: '', text: '' }), 500);
+        if (dispatch) dispatch();
+        if (goBack && history) history.goBack();
+        if (setFather && !goBack) setTimeout(() => setFather({ show: false, title: '', text: '' }), 500);
     };
 
     return (

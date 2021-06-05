@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Table, Pagination } from 'react-bootstrap';
 
 import { startGetData } from '../../redux/actions/data.action';
@@ -8,6 +9,7 @@ import { Modal } from '../../components';
 import './home.scss';
 
 const Home = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const data = useSelector((state) => state.Data);
     const [pageActive, setPageActive] = useState(1);
@@ -42,7 +44,7 @@ const Home = () => {
                 <tbody>
                     {data && data.data && data.data
                         .map((item, idx) => (
-                            <tr key={idx.toString()} onClick={() => { window.location.pathname = `/user/${item.id}`; }}>
+                            <tr key={idx.toString()} onClick={() => history.push(`/user/${item.id}`)}>
                                 <td className="text-center">
                                     <img src={item.avatar} alt="error-avatar" />
                                 </td>

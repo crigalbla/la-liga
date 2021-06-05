@@ -1,9 +1,5 @@
 import * as actionType from '../../actions/user.action';
 
-const stateError = (state, action) => ({
-    ...state, updatedAt: false, editedUser: false, error: action.value,
-});
-
 const User = (state = {}, action) => {
     switch (action.type) {
     case actionType.SUCCESS_GET_USER:
@@ -16,22 +12,30 @@ const User = (state = {}, action) => {
         return {
             ...state,
             ...action.value,
-            editedUser: false,
+            updatedAt: false,
             error: false,
         };
     case actionType.SUCCESS_EDIT_USER:
         return {
             ...state,
-            ...action.value,
-            updatedAt: false,
+            updatedAt: action.value.updatedAt,
+            deletedUser: false,
             error: false,
         };
-    case actionType.ERROR_GET_USER:
-        return stateError(state, action);
-    case actionType.ERROR_DELETE_USER:
-        return stateError(state, action);
-    case actionType.ERROR_EDIT_USER:
-        return stateError(state, action);
+    case actionType.ERROR_USER:
+        return {
+            ...state,
+            updatedAt: false,
+            deletedUser: false,
+            error: action.value,
+        };
+    case actionType.EMPTY_VALUES:
+        return {
+            ...state,
+            updatedAt: false,
+            deletedUser: false,
+            error: false,
+        };
     default:
         return state;
     }

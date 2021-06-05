@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
-import { startDeleteUser, startEditUser, startGetUser } from '../../redux/actions/user.action';
-
-import './userDetails.scss';
+import {
+    emptyValues, startDeleteUser, startEditUser, startGetUser,
+} from '../../redux/actions/user.action';
 import { Modal } from '../../components';
 
+import './userDetails.scss';
+
 const UserDetails = () => {
+    const history = useHistory();
+    const { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.User);
     const [editMode, setEditMode] = useState(false);
     const [feedBack, setfeedBack] = useState({ show: false, title: '', text: '' });
-    const [id, setId] = useState();
 
     const deleteUser = () => {
-        dispatch(startDeleteUser({ method: 'put', path: `/users/${id}` }));
+        dispatch(startDeleteUser({ method: 'delete', path: `/users/${id}` }));
     };
 
     const saveChanges = (event) => {
@@ -26,25 +30,21 @@ const UserDetails = () => {
             if (x.type === 'text') dataToEdit = { ...dataToEdit, [x.name]: x.value };
         });
 
-        dispatch(startEditUser({ method: 'delete', path: `/users/${id}` }));
+        dispatch(startEditUser({ method: 'put', path: `/users/${id}`, data: dataToEdit }));
     };
 
     useEffect(() => {
-        const arrayPathname = window.location.pathname.split('/');
-        const idFromURL = parseInt(arrayPathname[arrayPathname.length - 1], 10);
-
-        if (idFromURL > 0) {
-            setId(idFromURL);
-            dispatch(startGetUser({ method: 'get', path: `/users/${idFromURL}` }));
+        if (id > 0) {
+            dispatch(startGetUser({ method: 'get', path: `/users/${id}` }));
         } else {
-            window.location.pathname = '/home';
+            history.push('/home');
         }
     }, []);
 
     useEffect(() => {
-        if (user.updatedAt) setfeedBack({ show: true, title: '¡Todo ha ido bien!', text: 'El usuario ha sido eliminado' });
+        if (user.deletedUser) setfeedBack({ show: true, title: '¡Todo ha ido bien!', text: 'El usuario ha sido eliminado' });
 
-        if (user.editedUser) {
+        if (user.updatedAt) {
             setEditMode(false);
             setfeedBack({ show: true, title: '¡Todo ha ido bien!', text: 'El usuario ha sido editado' });
         }
@@ -100,7 +100,7 @@ const UserDetails = () => {
                                         </div>
                                     </div>
                                     <div className="userDetails-div__buttons">
-                                        <Button variant="dark" type="button" onClick={() => window.history.back()}>
+                                        <Button variant="dark" type="button" onClick={() => history.goBack()}>
                                             Volver
                                         </Button>
                                         <Button variant="dark" type="button" onClick={deleteUser}>
@@ -117,7 +117,18 @@ const UserDetails = () => {
                 : (
                     <div className="userDetails-div__notUser">Usuario no encontrado o no existe</div>
                 )}
-            {feedBack.show && <Modal show title={feedBack.title} text={feedBack.text} goBack={!!user.updatedAt} setFather={setfeedBack} />}
+            {feedBack.show
+                && (
+                    <Modal
+                        show
+                        title={feedBack.title}
+                        text={feedBack.text}
+                        goBack={!!user.deletedUser}
+                        setFather={setfeedBack}
+                        history={history}
+                        dispatch={() => dispatch(emptyValues())}
+                    />
+                )}
             {user.error && <Modal show title="Error" text={user.error} />}
         </div>
     );

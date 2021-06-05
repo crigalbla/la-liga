@@ -1,17 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Dropdown } from 'react-bootstrap';
 
+import { successLogOut } from '../../redux/actions/sesion.action';
 import laLigaLogo from '../../images/la-liga-header.png';
 import logoutIcon from '../../images/logout.png';
-import StorageService from '../../services/storage.service';
 
 import './Header.scss';
 
 const Header = () => {
-    const logout = () => {
-        StorageService.delete('token');
-        window.location.pathname = '/login';
-    };
+    const dispatch = useDispatch();
+
+    const logout = () => dispatch(successLogOut());
 
     return (
         <div className="header-div__main">
