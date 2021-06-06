@@ -49,7 +49,7 @@ Dev dependencies:
 ### Structure
 
 The project is structured with views and components. The views are the pages that we see and these use the components if is necessary.  
-All the request are called from redux-saga except the login request that it call the service fetch.service.  
+All the request are called from redux-saga.  
 The token is managed with the service storage.service.  
 React-router-dom was use to router the web located in App.jsx.  
 The project have a file .env with a unique constant => REACT_APP_API.  
