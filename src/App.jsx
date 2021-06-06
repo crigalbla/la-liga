@@ -10,7 +10,7 @@ import StorageService from './services/storage.service';
 
 const App = () => {
     // eslint-disable-next-line no-unused-vars
-    const sesion = useSelector((state) => state.Sesion);
+    const logged = useSelector((state) => state.Sesion.logged);
 
     const PrivateRoute = ({ children, ...rest }) => (
         <Route
